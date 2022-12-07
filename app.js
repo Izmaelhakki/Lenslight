@@ -22,8 +22,6 @@ app.use(express.static('public'));
 app.use(express.json());            //Posttaki json verileri expresin okuması için
 
 
-
-
 //routes
 app.use("/",pageRoute);
 app.use("/photos",photoRoute);
