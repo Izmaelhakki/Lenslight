@@ -6,9 +6,16 @@ import pageRoute from "./routes/pageRoute.js"
 import photoRoute from "./routes/photoRoute.js"
 import userRoute from "./routes/userRoute.js"
 import {checkUser} from "./middlewares/authmiddleware.js"
-import fetch from 'node-fetch';
+import fileupload from 'express-fileupload';
+import {v2 as cloudinary} from "cloudinary"
 
 dotenv.config();
+
+cloudinary.config({
+    cloud_name:process.env.CLOUD_NAME,
+    api_key:process.env.CLOUD_API_KEY,
+    api_secret:process.env.CLOUD_API_SECRET,
+});
 
 //connection to the Db
 conn();
@@ -26,6 +33,7 @@ app.use(express.static('public'));
 app.use(express.json());            //Posttaki json verilerinin expresin okuması için
 app.use(express.urlencoded({extended:false}));  //Posttaki form verilerinin expresin okuması için
 app.use(cookieParser());
+app.use(fileupload({useTempFiles:true}))
 
 
 //routes
