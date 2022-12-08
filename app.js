@@ -1,6 +1,7 @@
 import express from 'express';
 import dotenv from 'dotenv';
 import conn from "./db.js"
+import cookieParser from "cookie-parser"
 import pageRoute from "./routes/pageRoute.js"
 import photoRoute from "./routes/photoRoute.js"
 import userRoute from "./routes/userRoute.js"
@@ -20,8 +21,10 @@ app.set('view engine','ejs')
 
 //static files middleware
 app.use(express.static('public'));
-app.use(express.json());            //Posttaki json verileri expresin okuması için
-app.use(express.urlencoded({extended:false}));
+app.use(express.json());            //Posttaki json verilerinin expresin okuması için
+app.use(express.urlencoded({extended:false}));  //Posttaki form verilerinin expresin okuması için
+app.use(cookieParser());
+
 
 //routes
 app.use("/",pageRoute);
