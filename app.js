@@ -5,6 +5,8 @@ import cookieParser from "cookie-parser"
 import pageRoute from "./routes/pageRoute.js"
 import photoRoute from "./routes/photoRoute.js"
 import userRoute from "./routes/userRoute.js"
+import {checkUser} from "./middlewares/authmiddleware.js"
+import fetch from 'node-fetch';
 
 dotenv.config();
 
@@ -27,6 +29,7 @@ app.use(cookieParser());
 
 
 //routes
+app.use("*",checkUser) //Tüm get fonksiyonlarında kontrol edeceksin.
 app.use("/",pageRoute);
 app.use("/photos",photoRoute);
 app.use("/users",userRoute);
