@@ -3,7 +3,7 @@ import Photo from "../models/PhotoModel.js"
 const createPhoto = async (req, res) => {
 
     try {
-        const photo = await Photo.create(req.body)
+        const photo = await Photo.create(req.body)  
         res.status(201).json({
             succeded: true,
             photo,
