@@ -12,7 +12,16 @@ const getAboutPage=(req,res)=>{
     });
 }
 
+const getRegisterPage=(req,res)=>{
+    res.render("register",{
+        link:"register",
+    });
+}
+
+
+
 export {
     getIndexPage,
     getAboutPage,
+    getRegisterPage,
 }
