@@ -59,15 +59,23 @@ const getAPhoto = async (req, res) => {
 
     try {
         const photo = await Photo.findById({_id:req.params.id}).populate("user");
+
+        let isOwner=false;
+
+        if(res.locals.user){
+           isOwner= photo.user.equals(res.locals.user._id)
+        }
+
         res.status(200).render("photo",{
             photo,
             link:"photo",
+            isOwner,
         });
     } catch (err) {
         res.status(500).json({
             succeded: false,
             err,
-        });
+            });
     }
 
 }
