@@ -1,6 +1,6 @@
 <%-include("partials/_header") %>
-   <!-- body -->
-   <body class="main-layout inner_page">
+
+      <body class="main-layout inner_page">
       <!-- loader  -->
       <div class="loader_bg">
          <div class="loader"><img src="/images/loading.gif" alt="#"/></div>
@@ -8,7 +8,7 @@
       <!-- end loader -->
      
          <!-- header -->
-         <%-include("partials/_menu") %> 
+         <%=include("partials/_menu")%> 
       <!-- end header inner -->
       <!-- about -->
       <div class="about">
@@ -22,7 +22,7 @@
                 <p>
                   <%=photo.description %> 
                 </p>
-                <a class="read_more" href="about.html">
+                <a class="read_more" href="/users/<%=photo.user._id %>">
                 Artist:  <%=photo.user.username %>
                 </a>
               </div>

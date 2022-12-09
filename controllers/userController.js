@@ -77,15 +77,124 @@ const createToken = (userId) => {
 
 const getDashboardPage = async(req, res) => {
     const photos= await Photo.find({user:res.locals.user._id})
+    const user=await User.findById({_id:res.locals.user._id}).populate(["followings","followers"])
     res.render("dashboard", {
         link: "dashboard",
-        photos
+        photos,
+        user,
     });
 }
+
+const getAllUsers = async (req, res) => {
+
+    try {
+        const users = await User.find({_id:{$ne:res.locals.user._id}});
+        res.status(200).render("users",{
+            users,
+            link:"users",
+        });
+    } catch (err) {
+        res.status(500).json({
+            succeded: false,
+            err,
+        });
+    }
+}
+
+const getAUser = async (req, res) => {
+
+    try {
+        const user = await User.findById({_id:req.params.id})
+
+        const inFollowers=user.followers.some((follower)=>{
+            return follower.equals(res.locals.user._id)
+        });
+
+        const photos = await Photo.find({user:user._id})
+        res.status(200).render("user",{
+            user,
+            photos,
+            link:"user",
+            inFollowers,
+        });
+    } catch (err) {
+        res.status(500).json({
+            succeded: false,
+            err,
+        });
+    }
+}
+
+const follow = async (req, res) => {
+
+    try {
+
+        let user = await User.findByIdAndUpdate(        //user takip edilecek ve cıkılacak kullanıcı
+            {_id:req.params.id},
+            {
+            $push:{followers:res.locals.user._id}
+            },
+            {new:true}
+        );
+
+        user = await User.findByIdAndUpdate(
+            {_id: res.locals.user._id},
+            {
+                $push:{followings:req.params.id}
+            },
+            {new:true}
+        );
+
+        res.status(200).redirect(`/users/${req.params.id}`)
+
+    } catch (err) {
+        res.status(500).json({
+            succeded: false,
+            err,
+        });
+    }
+};
+
+const unfollow = async (req, res) => {
+
+    try {
+
+        let user = await User.findByIdAndUpdate(        //user takip edilecek ve cıkılacak kullanıcı
+            {_id:req.params.id},
+            {
+            $pull:{followers:res.locals.user._id}
+            },
+            {new:true}
+        )
+
+        user = await User.findByIdAndUpdate(
+            {_id: res.locals.user._id},
+            {
+                $pull:{followings:req.params.id}
+            },
+            {new:true}
+        );
+
+        res.status(200).redirect(`/users/${req.params.id}`)
+
+    } catch (err) {
+        res.status(500).json({
+            succeded: false,
+            err,
+        });
+    }
+};
+
+
 
 
 export {
     createUser,
     loginUser,
     getDashboardPage,
+    getAllUsers,
+    getAUser,
+    follow,
+    unfollow,
+    
 }
