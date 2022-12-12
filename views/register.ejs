@@ -1,4 +1,5 @@
 <%-include("partials/_header") %>
+<%validation_error.forEach(element=>{if(element.param==="username"){console.log("calisti!!!");}});%>
    <!-- body -->
    <body class="main-layout inner_page">
       <!-- loader  -->
@@ -22,24 +23,43 @@
               <div class="col-md-8 offset-md-2">
                 <form id="request" class="main_form" action="users/register" method="POST">
                   <div class="row">
+                    
                     <div class="col-md-12">
-                      <input class="form_control" placeholder="Username" type="text" name="username">                          
+                      <input class="form_control" value="<%=typeof username!='undefined'?username:''%>" placeholder="Username"  type="text" name="username">                          
                     </div>
+                    <%validation_error.forEach(element=>{if(element.param==="username"){%>
                     <div class="col-md-12">
-                      <div style="display: none;" class="alert alert-danger" id="username"></div>
-                   </div>
+                      <div style="display:block;" class="alert alert-danger" id="username"><%=element.msg %></div>
+                    </div> 
+                    <%}});%> 
+                    
                     <div class="col-md-12">
-                      <input class="form_control" placeholder="Email" type="mail"name="email"> 
+                      <input class="form_control"value="<%=typeof email!='undefined'?email:''%>" placeholder="Email" type="mail"name="email"> 
                     </div>
+                    <%validation_error.forEach(element=>{if(element.param==="email"){%>
                     <div class="col-md-12">
-                      <div style="display: none;" class="alert alert-danger" id="email"></div>
+                      <div style="display: block;" class="alert alert-danger" id="email"><%=element.msg%></div>
                    </div>
+                   <%}});%> 
+                                      
                     <div class="col-md-12">
-                     <input class="form_control" placeholder="Password" type="password" name="password">                          
+                     <input class="form_control"value="<%=typeof password!='undefined'?password:''%>" placeholder="Password" type="password" name="password">                          
                    </div>
+                   <%validation_error.forEach(element=>{if(element.param==="password"){%>
                    <div class="col-md-12">
-                    <div style="display: none;" class="alert alert-danger" id="password"></div>
+                    <div style="display: block;" class="alert alert-danger" id="password"><%=element.msg%></div>
                  </div>
+                 <%}});%> 
+
+                 <div class="col-md-12">
+                  <input class="form_control"value="<%=typeof repassword!='undefined'?repassword:''%>" placeholder="Repassword" type="password" name="repassword">                          
+                </div>
+                <%validation_error.forEach(element=>{if(element.param==="repassword"){%>
+                <div class="col-md-12">
+                 <div style="display: block;" class="alert alert-danger" id="repassword"><%=element.msg%></div>
+              </div>
+              <%}});%> 
+
                     <div class="col-md-12">
                       <div class="group_form">
                         <button class="send_btn">Register</button>

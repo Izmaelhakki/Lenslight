@@ -24,7 +24,6 @@ const checkUser = async (req, res, next) => {
 
 }
 
-
 const authenticateToken = async (req, res, next) => {
 
     try {
@@ -53,10 +52,6 @@ const authenticateToken = async (req, res, next) => {
         })
     }
 };
-
-
-
-
 
 
 

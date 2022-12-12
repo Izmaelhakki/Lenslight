@@ -24,6 +24,7 @@ const getAboutPage=(req,res)=>{
 }
 
 const getRegisterPage=(req,res)=>{
+    console.log(req.flash('validation_error'));
     res.render("register",{
         link:"register",
     });

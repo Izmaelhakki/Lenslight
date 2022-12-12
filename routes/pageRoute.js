@@ -13,5 +13,4 @@ router.route("/contact").get(pageController.getContactPage);
 router.route("/contact").post(pageController.sendMail);
 
 
-
 export default router;   

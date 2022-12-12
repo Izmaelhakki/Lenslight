@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 import bcrypt from "bcrypt"
 import validator from "validator"
 
-const {Schema}=mongoose;
+const Schema=mongoose.Schema;
 
 const userSchema =new Schema({
    username:{
@@ -34,11 +34,7 @@ const userSchema =new Schema({
         ref:"User",
     },
    ],
-
-},
-{
-    timestamps:true,
-}
+},{timestamps:true,}
 );
 
 userSchema.pre("save",function(next){

@@ -2,28 +2,32 @@ import User from "../models/userModel.js"
 import bcrypt from "bcrypt"
 import jwt from "jsonwebtoken"
 import Photo from "../models/PhotoModel.js";
+import { validationResult } from "express-validator";
 
 const createUser = async (req, res) => {
 
     try {
+       
+        const hatalar=validationResult(req);
+        if(!hatalar.isEmpty()){
+            req.flash('validation_error',hatalar.array())
+            req.flash('username',req.body.username)
+            req.flash('email',req.body.email)
+            req.flash('password',req.body.password)
+            req.flash('repassword',req.body.repassword)
 
+            res.redirect('/register');
+        }
+        
+        
         const user = await User.create(req.body) //Gelen Req body bilgileri ile tanımlanan User Modelini kullanarak yeni userı veritabanında olustur.
         res.redirect("/login")
 
     } catch (error) {
-        let errors2={}
-
-        if(error.name==="ValidationError"){
-            Object.keys(error.errors).forEach((key)=>{ //Gelen hatadaki keyleri properties olarak al ve bunlara onların mesajlarını ekle
-                errors2[key]=error.errors[key].message;
-            })
-        }
-
-        console.log("Errors2 :",errors2);
-
-        res.status(400).json({errors2})
+     
     }
 };
+
 
 const loginUser = async (req, res) => {
     try {
