@@ -80,7 +80,6 @@ const getAPhoto = async (req, res) => {
 
 }
 
-
 const deletePhoto = async (req, res) => {
 
     try {

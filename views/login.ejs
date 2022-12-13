@@ -20,15 +20,35 @@
                  <h2>Login</h2>
                 </div>
               </div>
+              
               <div class="col-md-8 offset-md-2">
                 <form id="request" class="main_form" action="users/login" method="POST">
                   <div class="row">
+
+                   <%if(successMessage[0]!=undefined){ %>
+                      <div class="col-md-12 text-center">
+                       <div style="display:block;" class="alert alert-success" id="username"><%=successMessage[0]%> </div>
+                      </div> 
+                   <% } %>
+
                     <div class="col-md-12">
-                      <input class="form_control" placeholder="Username" type="text" name="username">                          
+                      <input class="form_control"value="<%=typeof username!='undefined'?username:''%>" placeholder="Username" type="text" name="username">                          
                     </div>
-                    <div class="col-md-12">
-                     <input class="form_control" placeholder="Password" type="password" name="password">                          
+                    <%if(locals.username[0]!=undefined){%>
+                    <div class="col-md-12 text-center">
+                      <div style="display: block;" class="alert alert-danger" id="email">Kullanıcı Bulunamadı </div>
                    </div>
+                   <%};%> 
+
+                    <div class="col-md-12">
+                     <input class="form_control" value="<%=typeof password!='undefined'?password:''%>" placeholder="Password" type="password" name="password">                          
+                   </div>
+                   <%if(locals.password[0]!=undefined){%>
+                    <div class="col-md-12 text-center">
+                      <div style="display: block;" class="alert alert-danger" id="email">Sifre Hatalı</div>
+                   </div>
+                   <%};%> 
+
                     <div class="col-md-12">
                       <div class="group_form">
                         <button class="send_btn">Login</button>

@@ -9,7 +9,6 @@ import userRoute from "./routes/userRoute.js";
 import { checkUser } from "./middlewares/authmiddleware.js";
 import fileupload from 'express-fileupload';
 import { v2 as cloudinary } from "cloudinary";
-import { errCatching } from "./middlewares/errMiddleware.js"
 import session from 'express-session';
 import flash from 'connect-flash';
 
@@ -40,7 +39,9 @@ app.use(session(
 app.use(flash());
 app.use((req,res,next)=>{
     res.locals.validation_error=req.flash('validation_error');
+    res.locals.usedMail=req.flash('usedMail')
     res.locals.username=req.flash('username');
+    res.locals.successMessage=req.flash('success_message')
     res.locals.email=req.flash('email');
     res.locals.password=req.flash('password');
     res.locals.repassword=req.flash('repassword');
@@ -71,7 +72,6 @@ app.use("/users", userRoute);
 
 
 
-app.use(errCatching);
 
 app.listen(port, () => {
     console.log(`Application running on:${port}`)

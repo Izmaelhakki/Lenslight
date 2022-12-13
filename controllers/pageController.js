@@ -49,7 +49,6 @@ const getContactPage=(req,res)=>{
     });
 };
 
-
 const sendMail = async (req, res) => {
 
     const htmlTemplate=`
@@ -215,9 +214,6 @@ const sendMail = async (req, res) => {
     }
 
 }
-
-
-
 
 
 export {
