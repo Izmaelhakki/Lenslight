@@ -61,15 +61,11 @@ app.use(methodOverride("_method", {
     methods: ["POST", "GET"],
 }))
 
-
-
 //routes
 app.use("*", checkUser) //Tüm get fonksiyonlarında kontrol edeceksin.
 app.use("/", pageRoute);
 app.use("/photos", photoRoute);
 app.use("/users", userRoute);
-
-
 
 
 
